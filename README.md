@@ -15,9 +15,15 @@ Install Python 3.x on your machine, following the platform specific guidelines o
 
 In a terminal, ensure you have the correct version of python with: `python -V` the ouput should be a version number in semvar format with 3.x.x
 
-Clone the repo to a folder of your chosing and install the module dependancis via pip with: `pip install -r requirements.txt`
+Clone the repo to a folder of your chosing and install the module dependancis via pip with the follwing: 
 
-If all goes well you've downloaded the modules globally and can now proceed to run the program with the following: `python hackernews.py --posts n` where `n` is a value of your chosing to specific the number posts to download.
+`pip install -r requirements.txt`
+
+If all goes well you've downloaded the modules globally and can now proceed to run the program with the following: 
+
+`python hackernews.py --posts n` 
+
+where `n` is a value of your chosing to specific the number posts to download.
 
 * #### Install via Docker
 
@@ -34,7 +40,11 @@ From here, simply run the newly created image using the following:
 
 `docker run -it <name of image>`
 
-This will spin up the container and place you in a shell inside the hacker-news-scraper repo. You can now proceed to run the program with the following: `python hackernews.py --posts n` where `n` is a value of your chosing to specific the number posts to download.
+This will spin up the container and place you in a shell inside the hacker-news-scraper repo. You can now proceed to run the program with the following: 
+
+`python hackernews.py --posts n` 
+
+where `n` is a value of your chosing to specific the number posts to download.
 
 
 ## Libraries used
