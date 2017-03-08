@@ -2,26 +2,39 @@
 Simple command line application to scrape a user specified number of Hacker News articles and output as valid JSON
 
 ## How to run
+
 The program can be run from any python 3.x compliant environment with access to pip for python for installing module dependancies, meaning you have a couple of options for setting up an enviroment.
 
 * #### Basic Python install
+ ***Windows***
+
 Install Python 3.x on your machine, following the platform specific guidelines on the Python homepage under the downloads section.
 
 > Ensure that during the installation you check the option to "install pip" and also "add python to path variable".
 
 In a terminal, ensure you have the correct version of python with: `python -V` the ouput should be a version number in semvar format with 3.x.x
 
-Clone the repo to a folder of your chosing an install the module dependancis via pip with: `pip install -r requirements.txt`
+Clone the repo to a folder of your chosing and install the module dependancis via pip with: `pip install -r requirements.txt`
 
 If all goes well you've downloaded the modules globally and can now proceed to run the program with the following: `python hackernews.py --posts n` where `n` is a value of your chosing to specific the number posts to download.
 
-* #### Python virtualenv (recommeneded if not using docker)
-
-TBC 
 
 * #### Install via dockerfile
+***Linux***
 
-TBC
+Have a working version of docker running on your linux distro.
+
+Clone the repo to a directory of your chosing and cd into that repo.
+Build the docker image from the dockerfile in the root of the repo using the following command in the terminal: 
+
+`docker build -t <inset image name> .`
+
+From here, simply run the newly created image using the following:
+
+`docker run -it <name of image>`
+
+This will spin up the container and place you in a shell inside the hacker-news-scraper repo. You can now proceed to run the program with the following: `python hackernews.py --posts n` where `n` is a value of your chosing to specific the number posts to download.
+
 
 ## Libraries used
 A description of 3rd party modules used and why.
