@@ -19,10 +19,9 @@ Clone the repo to a folder of your chosing and install the module dependancis vi
 
 If all goes well you've downloaded the modules globally and can now proceed to run the program with the following: `python hackernews.py --posts n` where `n` is a value of your chosing to specific the number posts to download.
 
+* #### Install via Docker
 
-* #### Install via dockerfile
-
-***Linux***
+ ***Linux***
 
 Have a working version of docker running on your linux distro.
 
