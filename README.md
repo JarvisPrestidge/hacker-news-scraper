@@ -5,7 +5,7 @@ Simple command line application to scrape a user specified number of Hacker News
 
 The program can be run from any python 3.x compliant environment with access to pip for python for installing module dependancies, meaning you have a couple of options for setting up an enviroment.
 
-* #### Basic Python install
+* ### Basic Python install
 
  ***Windows***
 
@@ -25,7 +25,7 @@ If all goes well you've downloaded the modules globally and can now proceed to r
 
 where `n` is a value of your chosing to specific the number posts to download.
 
-* #### Install via Docker
+* ### Install via Docker
 
  ***Linux***
 
