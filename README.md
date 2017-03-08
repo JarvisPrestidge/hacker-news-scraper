@@ -3,7 +3,7 @@ Simple command line application to scrape a user specified number of Hacker News
 
 ## How to run
 
-The program can be run from any python 3.x compliant environment with access to pip for python for installing module dependancies, meaning you have a couple of options for setting up an enviroment.
+The program can be run from any python 3.x compliant environment with access to pip (required for installing module dependancies), meaning you have a couple of options for setting up an enviroment.
 
 * ### Basic Python install
 
@@ -45,6 +45,10 @@ This will spin up the container and place you in a shell inside the hacker-news-
 `python src/hackernews.py --posts n` 
 
 where `n` is a value of your chosing to specific the number posts to download.
+
+
+## Running Tests
+TBC
 
 
 ## Libraries used
