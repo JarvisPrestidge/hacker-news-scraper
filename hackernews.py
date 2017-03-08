@@ -20,29 +20,29 @@ base_url = 'https://news.ycombinator.com/news?p='
 @click.option('--posts', required=True, type=click.IntRange(1, 100), help='Number of news articles to scrape.')
 def hackernews(posts):
     """Simple command line application to scrape a user specified number of Hacker News articles."""
-    
+
     pages = int(posts / 30) + 1                 # Calculating the number of pages to scrape
     result = list()                             # Result list
     for page in range(pages):
-        result += scrape(page + 1, posts) 
-        
-    # Converting the list of dicts to JSON and printig to STDOUT    
-    print(json.dumps(result, indent=4, separators=(',', ': ')))                   
+        result += scrape(page + 1, posts)
+
+    # Converting the list of dicts to JSON and printig to STDOUT
+    print(json.dumps(result, indent=4, separators=(',', ': ')))
 
 
 # Responsible for performing scraping and error handling
 def scrape(page, posts):
-    
+
     url = base_url + str(page)                  # Construct page specific url
     r = requests.get(url)                       # Making the http request
     c = r.content                               # Getting the body
     soup = BeautifulSoup(c, 'html.parser')      # Parsing the content
     table = soup.find('table', 'itemlist')      # Anchoring to the itemlist table
     rows = table.find_all('tr')                 # Collecting all rows
-    
+
     # List comprehension to merge 2 data rows for each article
     items = [merge(row, rows[i+1]) for i, row in enumerate(rows) if row.get('class') == ['athing']]
-    
+
     # Slice the resulting list on the last page
     if int(posts / 30) + 1 == page:
         items = items[:(posts % 30)]
@@ -52,39 +52,50 @@ def scrape(page, posts):
     for item in items:
         title 	= item.select('.storylink')[0].get_text()
         uri 	= item.select('.storylink')[0].get('href')
-        rank    = item.select('.rank')[0].get_text()[:-1] 
+        rank    = item.select('.rank')[0].get_text()[:-1]
         # Try / except necessary to catch advertisment articles that don't allow for comments / author / scoring
         try:
             author  = item.find('td', 'subtext')('a')[0].get_text()
-            points  = item.find('td', 'subtext')('span')[0].get_text()[:-len(' points')]
+            points  = item.find('td', 'subtext')('span')[0].get_text()
             comments = item.find('td', 'subtext')('a')[3].get_text()
-            if comments == 'discuss': 
-                comments = '0'
-            else:
-                comments = comments[:-len('\u00a0comments')]
         except IndexError:
             author = 'empty'
             points = '0'
             comments = '0'
-            
-        # Handling for empty 
+        
+        # Handling the difference comment lengths
+        if comments == 'discuss': comments = '0'
+        elif "comments" not in comments: comments = comments[:-len('\u00a0comment')]
+        else: comments = comments[:-len('\u00a0comments')]
+        
+        # Handling the case of point singular or plural
+        if "points" not in points: points = points[:-len(' point')]
+        else: points = points[:-len(' points')]
+
+        # Handling for empty
         if not title: title = 'empty'
         if not author: author = 'empty'
+        
         # Handling for over 256 characters
         if len(title) > 256: title = title[:256]
         if len(author) > 256: author = author[:256]
+        
         # Handling integers less that zero
-        if points and int(points) < 0: points = '0'
-        if comments and int(comments) < 0: comments = '0'
-        if rank and int(rank) < 0: rank = '0'
-        # Handling for invalid URI 
+        if not points: points = '0'
+        elif int(points) < 0: points = '0'
+        if not comments: comments = '0'
+        elif int(comments) < 0: comments = '0'
+        if not rank: rank = '0'
+        elif int(rank) < 0: rank = '0'
+        
+        # Handling for invalid URI
         o = urlparse(uri)
         if not o.scheme or not o.netloc:
-            uri = 'invalid' 
+            uri = 'invalid'
 
         # Creating a dict per article
         article = OrderedDict([
-            ('title', title), 
+            ('title', title),
             ('uri', uri),
             ('author', author),
             ('points', points),
@@ -92,7 +103,7 @@ def scrape(page, posts):
             ('rank', rank)
         ])
         articles.append(article)
-        
+
     # Return the list of articlesk
     return articles
 
