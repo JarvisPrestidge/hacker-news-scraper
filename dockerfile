@@ -2,26 +2,22 @@
 # Python Dockerfile
 #
 
-# Base ubuntu image.
-FROM ubuntu:16.04
+# Base alpine image.
+FROM python:3.5-alpine
 
 MAINTAINER Jarvis Prestidge "jarvisprestidge@gmail.com"
 
-# Update and install dependancies
-RUN apt-get update && apt-get upgrade -y && apt-get install -y \
-		git \
-		build-essential \
-		libssl-dev \
-		libffi-dev \
-		python-dev \
-		python3-pip \
-		python3-venv
-		
-# Create working dir
-RUN mkdir environments && cd !$
+# Adding requirement.txt
+WORKDIR /app/hacker-news-scraper
+ADD requirements.txt /app/hacker-news-scraper
 
-# Clone my repo
-RUN git clone https://github.com/JarvisPrestidge/hacker-news-scraper.git
+# Udating dependancies
+RUN apk update python3 pip3 && \
+    pip3 install --no-cache-dir -r requirements.txt
 
-RUN pip install -r /path/to/requirements.txt && echo python hackernews.py --posts <num of posts>
+# Adding source
+ADD . /app/hacker-news-scraper
+
+# Open a shell
+ENTRYPOINT [ "/bin/ash" ]
 
