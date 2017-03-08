@@ -25,7 +25,7 @@ If all goes well you've downloaded the modules globally and can now proceed to r
 
 where `n` is a value of your chosing to specific the number posts to download.
 
-* ### Install via Docker
+* ### Build Docker container (dockerfile) 
 
  ***Linux***
 
