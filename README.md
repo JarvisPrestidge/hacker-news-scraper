@@ -19,9 +19,9 @@ Clone the repo to a folder of your chosing and install the module dependancis vi
 
 `pip install -r requirements.txt`
 
-If all goes well you've downloaded the modules globally and can now proceed to run the program with the following: 
+If all goes well you've downloaded the modules globally, now change directory into `hackernews` and proceed to run the program with the following: 
 
-`python src/hackernews.py --posts n` 
+`python hackernews.py --posts n` 
 
 where `n` is a value of your chosing to specify the number posts to download.
 
@@ -40,9 +40,9 @@ From here, simply run the newly created image using the following:
 
 `docker run -it <name of image>`
 
-This will spin up the container and place you in a shell inside the hacker-news-scraper repo. You can now proceed to run the program with the following: 
+This will spin up the container and place you in a shell inside the hacker-news-scraper repo. Then change directory into `hackernews` and proceed to run the program with the following: 
 
-`python src/hackernews.py --posts n` 
+`python hackernews.py --posts n` 
 
 where `n` is a value of your chosing to specify the number posts to download.
 
