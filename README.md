@@ -23,7 +23,7 @@ If all goes well you've downloaded the modules globally and can now proceed to r
 
 `python src/hackernews.py --posts n` 
 
-where `n` is a value of your chosing to specific the number posts to download.
+where `n` is a value of your chosing to specify the number posts to download.
 
 * ### Build Docker container (dockerfile) 
 
@@ -44,7 +44,7 @@ This will spin up the container and place you in a shell inside the hacker-news-
 
 `python src/hackernews.py --posts n` 
 
-where `n` is a value of your chosing to specific the number posts to download.
+where `n` is a value of your chosing to specify the number posts to download.
 
 
 ## Running Tests
@@ -61,4 +61,9 @@ Beautiful Soup is a Python library for pulling data out of HTML and XML files. I
 Requests is a http library with a api that is a pleasure to work with. Most regard it as the defacto http library for python because of it's simplicity, security and functionality. It also has the most active community developing it in comparision to it's competitors, including the standard libs. I use this lib for any work regarding the web with python, since i'm familiar with the api, it is very documented and provided all the functionality I require, all with an elogant api :D
 
 * #### [Click](http://click.pocoo.org/5/) - [Github](https://github.com/pallets/click)
-From the homepage - "Click is a Python package for creating beautiful command line interfaces in a composable way with as little code as necessary. It’s the “Command Line Interface Creation Kit”. It’s highly configurable but comes with sensible defaults out of the box." It's a new library that I picked up for this task, since it came with so many out of the box goodies and making easy to understand, good-looking user interfaces for command line programs is an art of own without a capable library to help. After reading some reviews and looking at some example of popular command line creation libraries, I decided to pick the one that came well recommended, with the clearest api.
+From the homepage - "Click is a Python package for creating beautiful command line interfaces in a composable way with as little code as necessary. It’s the “Command Line Interface Creation Kit”. It’s highly configurable but comes with sensible defaults out of the box." It's a new library that I picked up for this task, since it came with so many out of the box goodies and making easy to understand, good-looking user interfaces for command line programs is an art of own without a capable library to help. After reading some reviews and looking at some example of popular command line creation libraries, I decided to pick the one that came well recommended, with the clearest, most intuitive api.
+
+* #### [PyTest](http://doc.pytest.org/en/latest/) - [Github](https://github.com/pytest-dev/pytest/)
+Well recommended and actively maintained testing library, which the community seems to be rallying around. Allows for easy stand up of tests without too much scaffolding, and scales well with larger more complex applications. It's my preffered python testing framework and i'm fairly familiar with the conventions it puts in place. I've used this supply and assert tests against custom mocked html files with which to feed the beautifulsoup parser. From here I can create a suite of tests to ensure the contracts and constraints defined the inital brief can be successfully tested and measured. Each of the mock html files has been created to break a certain contract, and also fullfill it for both positive and negative assertions. The `tests` folder contains the mocked html file `test.html` and the main test script `test_hackernews.py`. 
+
+> FYI, this pulls in a number of other dependancies to which muddies the requirements.txt.

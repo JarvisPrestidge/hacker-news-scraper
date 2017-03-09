@@ -6,14 +6,14 @@ from collections import OrderedDict
 from urllib.parse import urlparse
 # Web scraping utilities
 from bs4 import BeautifulSoup
+# JSON conversion
+from json import dumps
 # Defacto http utilites
 import requests
 # Command line interface kit
 import click
-# JSON conversion
-import json
 
-base_url = 'https://news.ycombinator.com/news?p='
+BASEURL = 'https://news.ycombinator.com/news?p='
 
 # Function decorators for click
 @click.command()
@@ -23,27 +23,28 @@ def hackernews(posts):
 
     pages = int(posts / 30) + 1                 # Calculating the number of pages to scrape
     result = list()                             # Result list
-    for page in range(pages):
-        result += scrape(page + 1, posts)
+    
+    for page in range(1, pages + 1):
+        url = BASEURL + str(page)                   # Construct page specific url
+        r = requests.get(url)                       # Making the http request
+        c = r.content                               # Getting the body
+        bs4 = BeautifulSoup(c, 'html.parser')       # Parsing the content
+        result += scrape(page, posts, bs4)
 
     # Converting the list of dicts to JSON and printig to STDOUT
-    print(json.dumps(result, indent=4, separators=(',', ': ')))
+    print(dumps(result, indent=4, separators=(',', ': ')))
 
 
 # Responsible for performing scraping and error handling
-def scrape(page, posts):
+def scrape(page, posts, bs4):
 
-    url = base_url + str(page)                  # Construct page specific url
-    r = requests.get(url)                       # Making the http request
-    c = r.content                               # Getting the body
-    soup = BeautifulSoup(c, 'html.parser')      # Parsing the content
-    table = soup.find('table', 'itemlist')      # Anchoring to the itemlist table
+    table = bs4.find('table', 'itemlist')      # Anchoring to the itemlist table
     rows = table.find_all('tr')                 # Collecting all rows
 
     # List comprehension to merge 2 data rows for each article
     items = [merge(row, rows[i+1]) for i, row in enumerate(rows) if row.get('class') == ['athing']]
 
-    # Slice the resulting list on the last page
+    # Slice the resulting list if on the last page
     if int(posts / 30) + 1 == page:
         items = items[:(posts % 30)]
 
@@ -53,7 +54,7 @@ def scrape(page, posts):
         title 	= item.select('.storylink')[0].get_text()
         uri 	= item.select('.storylink')[0].get('href')
         rank    = item.select('.rank')[0].get_text()[:-1]
-        # Try / except necessary to catch advertisment articles that don't allow for comments / author / scoring
+        # Try / except necessary to catch advertisment articles that don't show comments / author / scoring
         try:
             author  = item.find('td', 'subtext')('a')[0].get_text()
             points  = item.find('td', 'subtext')('span')[0].get_text()
@@ -104,10 +105,10 @@ def scrape(page, posts):
         ])
         articles.append(article)
 
-    # Return the list of articlesk
+    # Return the list of articles
     return articles
 
-# Hleper function to convert & merge input as strings, returning bs4 object
+# Helper function to convert & merge input as strings, returning bs4 object
 def merge(left, right):
     return BeautifulSoup((str(left) + str(right)), 'html.parser')
 
