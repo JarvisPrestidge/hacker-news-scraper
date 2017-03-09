@@ -1,1 +1,13 @@
+# Compiled files
+**/__pycache__/
+**/*.py[cod]
+**/*$py.class
+
+# Unit tests
+**/.cache
+
+# VSCode project settings
+.vscode
+
+# Virtual env
 venv

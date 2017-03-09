@@ -48,7 +48,12 @@ where `n` is a value of your chosing to specify the number posts to download.
 
 
 ## Running Tests
-TBC
+
+After completing either of the steps above to get the required environment / dependancies setup, then you're ready to run tests. Simply change directory into `tests` and run the following:
+
+`pytest`
+
+> Use `pytest -v` for a more verbose breakdown of the coverage.
 
 
 ## Libraries used
@@ -64,6 +69,6 @@ Requests is a http library with a api that is a pleasure to work with. Most rega
 From the homepage - "Click is a Python package for creating beautiful command line interfaces in a composable way with as little code as necessary. It’s the “Command Line Interface Creation Kit”. It’s highly configurable but comes with sensible defaults out of the box." It's a new library that I picked up for this task, since it came with so many out of the box goodies and making easy to understand, good-looking user interfaces for command line programs is an art of own without a capable library to help. After reading some reviews and looking at some example of popular command line creation libraries, I decided to pick the one that came well recommended, with the clearest, most intuitive api.
 
 * #### [PyTest](http://doc.pytest.org/en/latest/) - [Github](https://github.com/pytest-dev/pytest/)
-Well recommended and actively maintained testing library, which the community seems to be rallying around. Allows for easy stand up of tests without too much scaffolding, and scales well with larger more complex applications. It's my preffered python testing framework and i'm fairly familiar with the conventions it puts in place. I've used this supply and assert tests against custom mocked html files with which to feed the beautifulsoup parser. From here I can create a suite of tests to ensure the contracts and constraints defined the inital brief can be successfully tested and measured. Each of the mock html files has been created to break a certain contract, and also fullfill it for both positive and negative assertions. The `tests` folder contains the mocked html file `test.html` and the main test script `test_hackernews.py`. 
+Well recommended and actively maintained testing library, which the community seems to be rallying around. Allows for easy stand up of tests without too much scaffolding, and scales well with larger more complex applications. It's my preffered python testing framework and i'm fairly familiar with the conventions it puts in place. I've used this supply and assert tests against custom mocked html files with which to feed the beautifulsoup parser. From here I can create a suite of tests to ensure the contracts and constraints defined the inital brief can be successfully tested and measured. Each of the mock html files has been created to break a certain contract, and also fullfill it for both positive and negative assertions. The `tests` folder contains the mocked html file `test.html` and the main test harness script `test_hackernews.py`. 
 
-> FYI, this pulls in a number of other dependancies to which muddies the requirements.txt.
+> FYI, this pulls in a number of meta dependancies which muddies the requirements.txt.
